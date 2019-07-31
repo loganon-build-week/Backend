@@ -6,20 +6,20 @@ server.get('/', async (req, res) => {
     res.status(200).json({ api: 'running' });
 });
 
-server.post('/users', (req, res) => {
+server.post('/login', (req, res) => {
     const newUser = req.body;
     if(!newUser.name) {
-        return res.status(422).json({ message: 'You forget to enter your name' });
+        return res.status(422).json({ message: 'Add a name' });
     }
-    return User.insert(req.body).then(addUser => res.status(200).json(addUser));
+    return URLSearchParams.insert(req.body).then(addUser => res.status(200).json(addUser));
 });
 
-server.delete('/users/:id', (req, res) => {
+server.delete('/homepage/:id', (req, res) => {
     return User.remove(req.params.id).then(user => {
         if(!user) {
-            return res.status(404).json({ message: 'Cannot find that user' });
+            return res.status(404).json({ message: 'User not found' });
         }
-        return res.status(200).json(user);
+        return res.status(200).json({ message: 'User has been deleted' });
     });
 });
 

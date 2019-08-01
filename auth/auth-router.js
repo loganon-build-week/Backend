@@ -7,7 +7,7 @@ const secrets = require('../config/secrets');
 
 router.post('/signup', (req, res) => {
     let user = req.body;
-    const hash = bcrypt.hashSync(user.password, 20);
+    const hash = bcrypt.hashSync(user.password, 14); // number this adds hashing and 
     user.password = hash;
 
     Users.add(user)
